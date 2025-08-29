@@ -31,7 +31,14 @@ import {
   ChevronRight as ChevronRightIcon,
   StickyNote,
   ExternalLink,
-  Star
+  Star,
+  Plus,
+  ArrowLeft,
+  Globe,
+  Volume2,
+  GitBranch,
+  Download,
+  Share2
 } from 'lucide-react';
 
 interface NavigationItem {
@@ -68,6 +75,8 @@ const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState('home');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeNotebook, setActiveNotebook] = useState<string | null>(null);
+  const [showCreateNotebook, setShowCreateNotebook] = useState(false);
   const [currentFlashCard, setCurrentFlashCard] = useState(0);
   const [showFlashCardBack, setShowFlashCardBack] = useState(false);
   const [quizStarted, setQuizStarted] = useState(false);
@@ -85,7 +94,7 @@ const App: React.FC = () => {
     { id: 'flashcards', label: 'Flashcards', icon: FileText },
     { id: 'quiz', label: 'Quiz Mode', icon: Brain },
     { id: 'courses', label: 'Courses', icon: BookOpen },
-    { id: 'notes', label: 'Notes', icon: StickyNote },
+    { id: 'notes', label: 'Notes', icon: BookOpen },
     { id: 'progress', label: 'Progress', icon: BarChart3 },
     { id: 'upload', label: 'Screenshot Solve', icon: Upload },
   ];
@@ -223,6 +232,50 @@ const App: React.FC = () => {
     }
   ];
 
+  // Sample notebooks data
+  const notebooks = [
+    {
+      id: '1',
+      title: 'Calculus I - Derivatives',
+      description: 'Complete notes and practice problems for differential calculus',
+      lastUpdated: '2 hours ago',
+      sourceCount: 8,
+      thumbnail: '📊'
+    },
+    {
+      id: '2',
+      title: 'World History - Renaissance',
+      description: 'Art, politics, and cultural changes during the Renaissance period',
+      lastUpdated: '1 day ago',
+      sourceCount: 12,
+      thumbnail: '🏛️'
+    },
+    {
+      id: '3',
+      title: 'Chemistry - Organic Compounds',
+      description: 'Molecular structures, reactions, and synthesis pathways',
+      lastUpdated: '3 days ago',
+      sourceCount: 6,
+      thumbnail: '🧪'
+    },
+    {
+      id: '4',
+      title: 'Literature Analysis - Shakespeare',
+      description: 'Character analysis and themes in Hamlet and Macbeth',
+      lastUpdated: '1 week ago',
+      sourceCount: 15,
+      thumbnail: '📚'
+    }
+  ];
+
+  // Sample sources for active notebook
+  const notebookSources = [
+    { id: '1', name: 'Calculus Textbook Ch. 3-5.pdf', type: 'pdf', size: '2.4 MB' },
+    { id: '2', name: 'Derivative Rules Summary.docx', type: 'doc', size: '156 KB' },
+    { id: '3', name: 'Khan Academy - Derivatives', type: 'youtube', url: 'youtube.com/watch?v=...' },
+    { id: '4', name: 'MIT OpenCourseWare - Calculus', type: 'web', url: 'ocw.mit.edu/...' }
+  ];
+
   const [courseSearchQuery, setCourseSearchQuery] = useState('');
   const [showRecommendations, setShowRecommendations] = useState(false);
 
@@ -311,6 +364,385 @@ const App: React.FC = () => {
     setQuizScore(0);
     setSelectedAnswer(null);
   };
+
+  const handleNotebookSelect = (notebookId: string) => {
+    setActiveNotebook(notebookId);
+  };
+
+  const handleBackToNotes = () => {
+    setActiveNotebook(null);
+  };
+
+  const renderNotesContent = () => {
+    if (activeNotebook) {
+      return renderNotebookWorkspace();
+    }
+    
+    if (showCreateNotebook) {
+      return renderCreateNotebook();
+    }
+    
+    return renderNotesHome();
+  };
+
+  const renderNotesHome = () => (
+    <div className="p-6 max-w-7xl mx-auto">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">My Notebooks</h1>
+          <p className="text-gray-600">Organize your study materials with AI-powered insights</p>
+        </div>
+        <button
+          onClick={() => setShowCreateNotebook(true)}
+          className="mt-4 sm:mt-0 bg-gradient-to-r from-blue-600 to-teal-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-blue-700 hover:to-teal-700 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center gap-2"
+        >
+          <Plus className="w-5 h-5" />
+          Create New Notebook
+        </button>
+      </div>
+
+      {/* Search and Filters */}
+      <div className="mb-8">
+        <div className="relative max-w-md">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+          <input
+            type="text"
+            placeholder="Search notebooks or ask for course recommendations..."
+            className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          />
+        </div>
+      </div>
+
+      {/* Notebooks Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {notebooks.map((notebook) => (
+          <div
+            key={notebook.id}
+            onClick={() => handleNotebookSelect(notebook.id)}
+            className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-200 cursor-pointer border border-gray-100 hover:border-blue-200 group"
+          >
+            <div className="p-6">
+              <div className="flex items-center justify-between mb-4">
+                <div className="text-4xl">{notebook.thumbnail}</div>
+                <div className="flex items-center gap-1 text-sm text-gray-500">
+                  <FileText className="w-4 h-4" />
+                  <span>{notebook.sourceCount}</span>
+                </div>
+              </div>
+              <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+                {notebook.title}
+              </h3>
+              <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                {notebook.description}
+              </p>
+              <div className="flex items-center justify-between">
+                <span className="text-xs text-gray-500">{notebook.lastUpdated}</span>
+                <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-blue-600 transition-colors" />
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Empty State */}
+      {notebooks.length === 0 && (
+        <div className="text-center py-16">
+          <BookOpen className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+          <h3 className="text-xl font-semibold text-gray-900 mb-2">No notebooks yet</h3>
+          <p className="text-gray-600 mb-6">Create your first notebook to get started with AI-powered studying</p>
+          <button
+            onClick={() => setShowCreateNotebook(true)}
+            className="bg-gradient-to-r from-blue-600 to-teal-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-blue-700 hover:to-teal-700 transition-all duration-200"
+          >
+            Create Notebook
+          </button>
+        </div>
+      )}
+    </div>
+  );
+
+  const renderCreateNotebook = () => (
+    <div className="p-6 max-w-4xl mx-auto">
+      <div className="bg-white rounded-xl shadow-lg border border-gray-100">
+        {/* Header */}
+        <div className="flex items-center justify-between p-6 border-b border-gray-100">
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setShowCreateNotebook(false)}
+              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            >
+              <ArrowLeft className="w-5 h-5 text-gray-600" />
+            </button>
+            <h2 className="text-2xl font-bold text-gray-900">Create New Notebook</h2>
+          </div>
+        </div>
+
+        <div className="p-6">
+          {/* Notebook Details */}
+          <div className="mb-8">
+            <div className="mb-6">
+              <label className="block text-sm font-medium text-gray-700 mb-2">Notebook Title</label>
+              <input
+                type="text"
+                placeholder="e.g., Physics - Quantum Mechanics"
+                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+            <div className="mb-6">
+              <label className="block text-sm font-medium text-gray-700 mb-2">Description (Optional)</label>
+              <textarea
+                placeholder="Brief description of what this notebook covers..."
+                rows={3}
+                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+              />
+            </div>
+          </div>
+
+          {/* Add Sources */}
+          <div className="mb-8">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Add Sources</h3>
+            
+            {/* Upload Area */}
+            <div className="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:border-blue-400 transition-colors mb-6">
+              <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+              <h4 className="text-lg font-medium text-gray-900 mb-2">Upload Files</h4>
+              <p className="text-gray-600 mb-4">Drag and drop files or click to browse</p>
+              <p className="text-sm text-gray-500">Supports PDF, DOCX, PPTX, TXT files</p>
+              <button className="mt-4 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                Choose Files
+              </button>
+            </div>
+
+            {/* URL Input */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Website URL</label>
+                <div className="relative">
+                  <Globe className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                  <input
+                    type="url"
+                    placeholder="https://example.com/article"
+                    className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">YouTube URL</label>
+                <div className="relative">
+                  <Play className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                  <input
+                    type="url"
+                    placeholder="https://youtube.com/watch?v=..."
+                    className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex justify-end gap-3">
+            <button
+              onClick={() => setShowCreateNotebook(false)}
+              className="px-6 py-3 border border-gray-200 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={() => {
+                setShowCreateNotebook(false);
+                setActiveNotebook('new');
+              }}
+              className="bg-gradient-to-r from-blue-600 to-teal-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-blue-700 hover:to-teal-700 transition-all duration-200"
+            >
+              Create Notebook
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderNotebookWorkspace = () => (
+    <div className="flex h-full">
+      {/* Sources Panel */}
+      <div className="w-80 bg-gray-50 border-r border-gray-200 flex flex-col">
+        {/* Sources Header */}
+        <div className="p-4 border-b border-gray-200">
+          <div className="flex items-center justify-between mb-4">
+            <button
+              onClick={handleBackToNotes}
+              className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              <span className="text-sm">Back to Notebooks</span>
+            </button>
+          </div>
+          <h2 className="font-semibold text-gray-900 mb-1">Calculus I - Derivatives</h2>
+          <p className="text-sm text-gray-600">8 sources • Last updated 2 hours ago</p>
+        </div>
+
+        {/* Add Sources Button */}
+        <div className="p-4 border-b border-gray-200">
+          <button className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2">
+            <Plus className="w-4 h-4" />
+            Add Sources
+          </button>
+        </div>
+
+        {/* Sources List */}
+        <div className="flex-1 overflow-y-auto p-4">
+          <div className="space-y-3">
+            {notebookSources.map((source) => (
+              <div key={source.id} className="bg-white rounded-lg p-3 border border-gray-200 hover:border-blue-200 transition-colors group">
+                <div className="flex items-start gap-3">
+                  <div className="flex-shrink-0">
+                    {source.type === 'pdf' && <FileText className="w-5 h-5 text-red-500" />}
+                    {source.type === 'doc' && <FileText className="w-5 h-5 text-blue-500" />}
+                    {source.type === 'youtube' && <Play className="w-5 h-5 text-red-600" />}
+                    {source.type === 'web' && <Globe className="w-5 h-5 text-green-500" />}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h4 className="text-sm font-medium text-gray-900 truncate">{source.name}</h4>
+                    <p className="text-xs text-gray-500 mt-1">
+                      {source.size || source.url}
+                    </p>
+                  </div>
+                  <button className="opacity-0 group-hover:opacity-100 transition-opacity p-1 hover:bg-gray-100 rounded">
+                    <X className="w-4 h-4 text-gray-400" />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Main Workspace */}
+      <div className="flex-1 flex flex-col">
+        {/* Workspace Header */}
+        <div className="bg-white border-b border-gray-200 p-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <h3 className="font-semibold text-gray-900">Notebook Assistant</h3>
+              <div className="flex items-center gap-2">
+                <button className="flex items-center gap-2 px-3 py-1.5 bg-purple-100 text-purple-700 rounded-lg hover:bg-purple-200 transition-colors text-sm">
+                  <Volume2 className="w-4 h-4" />
+                  Audio Overview
+                </button>
+                <button className="flex items-center gap-2 px-3 py-1.5 bg-green-100 text-green-700 rounded-lg hover:bg-green-200 transition-colors text-sm">
+                  <GitBranch className="w-4 h-4" />
+                  Mindmap
+                </button>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                <Download className="w-5 h-5 text-gray-600" />
+              </button>
+              <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                <Share2 className="w-5 h-5 text-gray-600" />
+              </button>
+              <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                <Settings className="w-5 h-5 text-gray-600" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Chat Interface */}
+        <div className="flex-1 flex flex-col">
+          {/* Messages Area */}
+          <div className="flex-1 overflow-y-auto p-6 bg-gray-50">
+            <div className="max-w-4xl mx-auto space-y-6">
+              {/* Welcome Message */}
+              <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-teal-600 rounded-full flex items-center justify-center">
+                    <Brain className="w-5 h-5 text-white" />
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="font-semibold text-gray-900 mb-2">Welcome to your Calculus notebook!</h4>
+                    <p className="text-gray-600 mb-4">I've analyzed your 8 sources and I'm ready to help you study. Here are some things I can do:</p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      <button className="text-left p-3 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
+                        <div className="font-medium text-blue-900">📝 Generate Summary</div>
+                        <div className="text-sm text-blue-700">Create a comprehensive overview</div>
+                      </button>
+                      <button className="text-left p-3 bg-teal-50 rounded-lg hover:bg-teal-100 transition-colors">
+                        <div className="font-medium text-teal-900">🃏 Create Flashcards</div>
+                        <div className="text-sm text-teal-700">Generate study cards from content</div>
+                      </button>
+                      <button className="text-left p-3 bg-purple-50 rounded-lg hover:bg-purple-100 transition-colors">
+                        <div className="font-medium text-purple-900">🎧 Audio Overview</div>
+                        <div className="text-sm text-purple-700">Listen to a spoken summary</div>
+                      </button>
+                      <button className="text-left p-3 bg-green-50 rounded-lg hover:bg-green-100 transition-colors">
+                        <div className="font-medium text-green-900">🗺️ Create Mindmap</div>
+                        <div className="text-sm text-green-700">Visualize key concepts</div>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Sample Conversation */}
+              <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
+                    <User className="w-4 h-4 text-gray-600" />
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-gray-900">Can you explain the chain rule for derivatives?</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+                <div className="flex items-start gap-4">
+                  <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-teal-600 rounded-full flex items-center justify-center">
+                    <Brain className="w-4 h-4 text-white" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="prose prose-sm max-w-none">
+                      <p className="text-gray-900 mb-4">Based on your uploaded materials, here's an explanation of the chain rule:</p>
+                      <div className="bg-blue-50 rounded-lg p-4 mb-4">
+                        <p className="font-medium text-blue-900 mb-2">Chain Rule Formula:</p>
+                        <p className="font-mono text-blue-800">d/dx[f(g(x))] = f'(g(x)) × g'(x)</p>
+                      </div>
+                      <p className="text-gray-700">The chain rule is used when you have a composite function - a function inside another function. You differentiate the outer function first, then multiply by the derivative of the inner function.</p>
+                    </div>
+                    <div className="flex items-center gap-2 mt-4 pt-4 border-t border-gray-100">
+                      <span className="text-xs text-gray-500">Sources:</span>
+                      <span className="text-xs bg-red-100 text-red-700 px-2 py-1 rounded">Calculus Textbook Ch. 3-5.pdf</span>
+                      <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">Derivative Rules Summary.docx</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Chat Input */}
+          <div className="border-t border-gray-200 p-4 bg-white">
+            <div className="max-w-4xl mx-auto">
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Ask anything about your study materials..."
+                  className="w-full pl-4 pr-12 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
+                <button className="absolute right-2 top-1/2 transform -translate-y-1/2 p-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                  <Send className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 
   const renderSidebar = () => (
     <div className={`fixed left-0 top-0 h-full bg-gradient-to-b from-gray-50 to-gray-100 border-r border-gray-200 transition-all duration-300 z-40 ${
@@ -881,107 +1313,6 @@ const App: React.FC = () => {
     </div>
   );
 
-  const renderNotesScreen = () => (
-    <div className="p-6 space-y-6">
-      <div className="text-center">
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Notes & Summaries</h2>
-        <p className="text-gray-600">AI-generated summaries from your study materials</p>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 space-y-6">
-          <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="font-semibold text-gray-900">Recent Notes</h3>
-              <button className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
-                New Note
-              </button>
-            </div>
-            <div className="space-y-3">
-              <div className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <div className="flex items-center justify-between mb-2">
-                  <h4 className="font-medium text-gray-900">Photosynthesis Process</h4>
-                  <span className="text-xs text-gray-500">Biology</span>
-                </div>
-                <p className="text-sm text-gray-600 mb-2">AI-generated summary of Chapter 8: Plant Biology</p>
-                <div className="flex items-center gap-2 text-xs text-gray-500">
-                  <Calendar className="w-3 h-3" />
-                  <span>Created 2 hours ago</span>
-                </div>
-              </div>
-              <div className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <div className="flex items-center justify-between mb-2">
-                  <h4 className="font-medium text-gray-900">Calculus Derivatives</h4>
-                  <span className="text-xs text-gray-500">Mathematics</span>
-                </div>
-                <p className="text-sm text-gray-600 mb-2">Key concepts and formulas for derivative calculations</p>
-                <div className="flex items-center gap-2 text-xs text-gray-500">
-                  <Calendar className="w-3 h-3" />
-                  <span>Created yesterday</span>
-                </div>
-              </div>
-              <div className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <div className="flex items-center justify-between mb-2">
-                  <h4 className="font-medium text-gray-900">World War II Timeline</h4>
-                  <span className="text-xs text-gray-500">History</span>
-                </div>
-                <p className="text-sm text-gray-600 mb-2">Major events and dates from 1939-1945</p>
-                <div className="flex items-center gap-2 text-xs text-gray-500">
-                  <Calendar className="w-3 h-3" />
-                  <span>Created 3 days ago</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="space-y-6">
-          <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
-            <h3 className="font-semibold text-gray-900 mb-4">Quick Actions</h3>
-            <div className="space-y-3">
-              <button className="w-full p-3 bg-blue-50 hover:bg-blue-100 rounded-lg text-left transition-colors">
-                <div className="flex items-center gap-3">
-                  <StickyNote className="w-5 h-5 text-blue-600" />
-                  <span className="font-medium text-gray-900">Create Note</span>
-                </div>
-              </button>
-              <button className="w-full p-3 bg-teal-50 hover:bg-teal-100 rounded-lg text-left transition-colors">
-                <div className="flex items-center gap-3">
-                  <Upload className="w-5 h-5 text-teal-600" />
-                  <span className="font-medium text-gray-900">Upload Document</span>
-                </div>
-              </button>
-              <button className="w-full p-3 bg-purple-50 hover:bg-purple-100 rounded-lg text-left transition-colors">
-                <div className="flex items-center gap-3">
-                  <Zap className="w-5 h-5 text-purple-600" />
-                  <span className="font-medium text-gray-900">AI Summary</span>
-                </div>
-              </button>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
-            <h3 className="font-semibold text-gray-900 mb-4">Study Statistics</h3>
-            <div className="space-y-4">
-              <div className="flex justify-between">
-                <span className="text-gray-600">Total Notes</span>
-                <span className="font-semibold">24</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">AI Summaries</span>
-                <span className="font-semibold">18</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">This Week</span>
-                <span className="font-semibold">7</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
   const renderProgressScreen = () => (
     <div className="p-6 space-y-6">
       <div className="text-center">
@@ -1433,7 +1764,7 @@ const App: React.FC = () => {
             )}
           </div>
         );
-      case 'notes': return renderNotesScreen();
+      case 'notes': return renderNotesContent();
       case 'progress': return renderProgressScreen();
       case 'upload': return renderUploadScreen();
       default: return renderHomeScreen();
