@@ -38,8 +38,10 @@ import {
   Volume2,
   GitBranch,
   Download,
-  Share2
+  Share2,
+  LogOut
 } from 'lucide-react';
+import LoginPage from './components/LoginPage';
 
 interface NavigationItem {
   id: string;
@@ -87,6 +89,34 @@ const App: React.FC = () => {
   const [chatInput, setChatInput] = useState('');
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
   const [dragActive, setDragActive] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [authToken, setAuthToken] = useState<string | null>(null);
+
+  // Check for existing auth token on app load
+  React.useEffect(() => {
+    const token = localStorage.getItem('auth_token');
+    if (token) {
+      setAuthToken(token);
+      setIsAuthenticated(true);
+    }
+  }, []);
+
+  const handleLogin = (token: string) => {
+    setAuthToken(token);
+    setIsAuthenticated(true);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('auth_token');
+    setAuthToken(null);
+    setIsAuthenticated(false);
+    setActiveTab('home');
+  };
+
+  // Show login page if not authenticated
+  if (!isAuthenticated) {
+    return <LoginPage onLogin={handleLogin} />;
+  }
 
   const navigation: NavigationItem[] = [
     { id: 'home', label: 'Dashboard', icon: Home },
@@ -839,7 +869,14 @@ const App: React.FC = () => {
           <button className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg">
             <Settings className="w-5 h-5" />
           </button>
-          <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-teal-500 rounded-full flex items-center justify-center ml-2">
+          <button
+            onClick={handleLogout}
+            className="p-1 text-gray-600 hover:text-red-600 transition-colors"
+            title="Logout"
+          >
+            <LogOut className="w-5 h-5" />
+          </button>
+          <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-teal-500 rounded-full flex items-center justify-center ml-2 cursor-pointer">
             <User className="w-4 h-4 text-white" />
           </div>
         </div>
