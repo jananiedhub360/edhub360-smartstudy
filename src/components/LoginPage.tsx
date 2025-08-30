@@ -58,26 +58,27 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
     setIsLoading(true);
 
     try {
-      // Dummy login validation
-      const validEmail = 'contact@edhub360.com';
-      const validPassword = '123456';
-      
-      // Simulate network delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      if (formData.email === validEmail && formData.password === validPassword) {
-        // Generate fake JWT token
-        const fakeToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjb250YWN0QGVkaHViMzYwLmNvbSIsIm5hbWUiOiJFZGh1YjM2MCBVc2VyIiwiaWF0IjoxNTE2MjM5MDIyfQ.dummy_signature_for_demo';
-        
-        // Store JWT token
-        localStorage.setItem('auth_token', fakeToken);
-        localStorage.setItem('user_email', formData.email);
-        
-        // Call parent component's login handler
-        onLogin(fakeToken);
-      } else {
-        throw new Error('Invalid email or password. Use contact@edhub360.com / 123456');
+      // Simulate API call to FastAPI backend
+      const response = await fetch('/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.detail || 'Login failed');
       }
+
+      const data = await response.json();
+      
+      // Store JWT token
+      localStorage.setItem('auth_token', data.access_token);
+      
+      // Call parent component's login handler
+      onLogin(data.access_token);
       
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred during login');
@@ -103,13 +104,6 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
           <div className="mb-6">
             <h2 className="text-2xl font-semibold text-gray-900 mb-2">Welcome back</h2>
             <p className="text-gray-600">Sign in to continue your learning journey</p>
-            
-            {/* Demo Credentials Info */}
-            <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-              <p className="text-sm text-blue-800 font-medium mb-1">Demo Credentials:</p>
-              <p className="text-xs text-blue-700">Email: contact@edhub360.com</p>
-              <p className="text-xs text-blue-700">Password: 123456</p>
-            </div>
           </div>
 
           {error && (
