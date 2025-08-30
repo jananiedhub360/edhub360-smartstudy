@@ -90,6 +90,7 @@ const App: React.FC = () => {
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
   const [dragActive, setDragActive] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userEmail, setUserEmail] = useState('');
   const [authToken, setAuthToken] = useState<string | null>(null);
 
   // Check for existing auth token on app load
@@ -101,9 +102,29 @@ const App: React.FC = () => {
     }
   }, []);
 
+  // Check for existing authentication on app load
+  useEffect(() => {
+    const token = localStorage.getItem('auth_token');
+    const email = localStorage.getItem('user_email');
+    if (token && email) {
+      setIsAuthenticated(true);
+      setUserEmail(email);
+    }
+  }, []);
+
   const handleLogin = (token: string) => {
+    const email = localStorage.getItem('user_email') || '';
     setAuthToken(token);
     setIsAuthenticated(true);
+    setUserEmail(email);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('auth_token');
+    localStorage.removeItem('user_email');
+    setIsAuthenticated(false);
+    setUserEmail('');
+    setActiveTab('dashboard');
   };
 
   const handleLogout = () => {
