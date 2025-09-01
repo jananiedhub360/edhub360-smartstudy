@@ -1759,43 +1759,653 @@ const App: React.FC = () => {
                   >
                     ← Back to Edhub360 Courses
                   </button>
-                </div>
-              </div>
-            )}
+      {/* Key Performance Indicators */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-gray-600">Average Score</p>
+              <p className="text-2xl font-bold text-gray-900">87%</p>
+              <p className="text-sm text-green-600">+3% this week</p>
+              <p className="text-sm text-green-600">+15m from yesterday</p>
+            <TrendingUp className="w-8 h-8 text-green-500" />
+            <Clock className="w-8 h-8 text-blue-500" />
           </div>
-        );
-      case 'notes': return renderNotesContent();
-      case 'progress': return renderProgressScreen();
-      case 'upload': return renderUploadScreen();
-      default: return renderHomeScreen();
+        </div>
+        
+          onClick={() => setMobileMenuOpen(false)}
+        />
+              <p className="text-sm font-medium text-gray-600">Badges Earned</p>
+              <p className="text-2xl font-bold text-gray-900">8</p>
+              <p className="text-sm text-blue-600">2 new this week</p>
+              <p className="text-2xl font-bold text-gray-900">12 days</p>
+            <Award className="w-8 h-8 text-yellow-500" />
+      <div className={`flex-1 flex flex-col transition-all duration-300 ${
+            <Zap className="w-8 h-8 text-orange-500" />
+      </div>
+
+      {/* Detailed Analytics */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Study Time Breakdown */}
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">Study Time Breakdown</h3>
+          <div className="space-y-4">
+            <div className="flex justify-between items-center">
+              <span className="text-gray-600">This Week</span>
+              <span className="font-semibold">18h 30m</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-gray-600">This Month</span>
+              <span className="font-semibold">72h 15m</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-gray-600">Goal Progress</span>
+              <span className="font-semibold text-green-600">85% (17/20h)</span>
+            </div>
+            <div className="w-full bg-gray-200 rounded-full h-2">
+              <div className="bg-blue-500 h-2 rounded-full" style={{ width: '85%' }}></div>
+            </div>
+          </div>
+        </div>
+
+        {/* Quiz Performance */}
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">Quiz Performance</h3>
+          <div className="space-y-3">
+            <div className="flex justify-between items-center p-3 bg-green-50 rounded-lg">
+              <span className="text-gray-700">Mathematics Quiz</span>
+              <span className="font-semibold text-green-700">92%</span>
+            </div>
+            <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
+              <span className="text-gray-700">Physics Quiz</span>
+              <span className="font-semibold text-blue-700">85%</span>
+            </div>
+            <div className="flex justify-between items-center p-3 bg-yellow-50 rounded-lg">
+              <span className="text-gray-700">Chemistry Quiz</span>
+              <span className="font-semibold text-yellow-700">78%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Topic Mastery & Activity */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Topic Mastery */}
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">Topic Mastery</h3>
+          <div className="space-y-4">
+            <div>
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-gray-700">Calculus</span>
+                <span className="text-sm font-medium text-green-600">Advanced</span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-2">
+                <div className="bg-green-500 h-2 rounded-full" style={{ width: '90%' }}></div>
+              </div>
+            </div>
+            <div>
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-gray-700">Physics</span>
+                <span className="text-sm font-medium text-blue-600">Intermediate</span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-2">
+                <div className="bg-blue-500 h-2 rounded-full" style={{ width: '70%' }}></div>
+              </div>
+            </div>
+            <div>
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-gray-700">Chemistry</span>
+                <span className="text-sm font-medium text-yellow-600">Beginner</span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-2">
+                <div className="bg-yellow-500 h-2 rounded-full" style={{ width: '45%' }}></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Recent Activity */}
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">Recent Activity</h3>
+          <div className="space-y-3">
+            <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+              <BookOpen className="w-5 h-5 text-blue-500" />
+              <div>
+                <p className="text-sm font-medium text-gray-900">Completed Calculus Quiz</p>
+                <p className="text-xs text-gray-500">2 hours ago</p>
+              </div>
+            </div>
+            <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+              <FileText className="w-5 h-5 text-green-500" />
+              <div>
+                <p className="text-sm font-medium text-gray-900">Created Physics Notes</p>
+                <p className="text-xs text-gray-500">5 hours ago</p>
+              </div>
+            </div>
+            <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+              <Brain className="w-5 h-5 text-purple-500" />
+              <div>
+                <p className="text-sm font-medium text-gray-900">Reviewed Flashcards</p>
+                <p className="text-xs text-gray-500">1 day ago</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Achievements & Recommendations */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Achievements */}
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">Recent Achievements</h3>
+          <div className="grid grid-cols-2 gap-3">
+            <div className="flex items-center space-x-2 p-3 bg-yellow-50 rounded-lg">
+              <Award className="w-6 h-6 text-yellow-500" />
+              <div>
+                <p className="text-sm font-medium text-gray-900">Quiz Master</p>
+                <p className="text-xs text-gray-500">5 perfect scores</p>
+              </div>
+            </div>
+            <div className="flex items-center space-x-2 p-3 bg-blue-50 rounded-lg">
+              <Zap className="w-6 h-6 text-blue-500" />
+              <div>
+                <p className="text-sm font-medium text-gray-900">Study Streak</p>
+                <p className="text-xs text-gray-500">10+ days</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* AI Recommendations */}
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">Recommended Next Steps</h3>
+          <div className="space-y-3">
+            <div className="flex items-start space-x-3 p-3 bg-blue-50 rounded-lg">
+              <Target className="w-5 h-5 text-blue-500 mt-0.5" />
+              <div>
+                <p className="text-sm font-medium text-gray-900">Focus on Chemistry</p>
+                <p className="text-xs text-gray-500">Your weakest subject - try the basics quiz</p>
+              </div>
+            </div>
+            <div className="flex items-start space-x-3 p-3 bg-green-50 rounded-lg">
+              <BookOpen className="w-5 h-5 text-green-500 mt-0.5" />
+              <div>
+                <p className="text-sm font-medium text-gray-900">Review Calculus Notes</p>
+                <p className="text-xs text-gray-500">Reinforce your strong performance</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Weekly Activity Chart */}
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">Weekly Activity</h3>
+        <div className="grid grid-cols-7 gap-2">
+          {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day, index) => (
+            <div key={day} className="text-center">
+              <p className="text-xs text-gray-500 mb-2">{day}</p>
+              <div 
+                className={`h-16 rounded ${
+                  index < 5 ? 'bg-blue-500' : index === 5 ? 'bg-blue-300' : 'bg-gray-200'
+                }`}
+                style={{ 
+                  height: `${Math.max(20, (index < 5 ? 80 : index === 5 ? 60 : 20))}px` 
+                }}
+              ></div>
+              <p className="text-xs text-gray-600 mt-1">
+                {index < 5 ? '3h' : index === 5 ? '2h' : '0h'}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderAIChat = () => (
+    <div className="space-y-6">
+      <div>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">AI Study Assistant</h1>
+        <p className="text-gray-600">Get instant help with your studies</p>
+      </div>
+      
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 h-96 flex flex-col">
+        <div className="flex-1 p-6 overflow-y-auto">
+          <div className="space-y-4">
+            <div className="flex items-start space-x-3">
+              <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                <Brain className="w-4 h-4 text-white" />
+              </div>
+              <div className="bg-gray-100 rounded-lg p-3 max-w-xs">
+                <p className="text-sm">Hello! I'm your AI study assistant. How can I help you today?</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="border-t border-gray-200 p-4">
+          <div className="flex space-x-2">
+            <input
+              type="text"
+              placeholder="Ask me anything about your studies..."
+              className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <button className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
+              <Send className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderFlashcards = () => (
+    <div className="space-y-6">
+      <div>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Flashcards</h1>
+        <p className="text-gray-600">Review and create flashcards for better retention</p>
+      </div>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow cursor-pointer">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-lg font-semibold text-gray-900">Mathematics</h3>
+            <span className="text-sm text-gray-500">24 cards</span>
+          </div>
+          <p className="text-gray-600 mb-4">Calculus and algebra fundamentals</p>
+          <div className="flex justify-between items-center">
+            <span className="text-sm text-green-600">85% mastered</span>
+            <button className="text-blue-500 hover:text-blue-600">Review →</button>
+          </div>
+        </div>
+      }`}>
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow cursor-pointer">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-lg font-semibold text-gray-900">Physics</h3>
+            <span className="text-sm text-gray-500">18 cards</span>
+          </div>
+          <p className="text-gray-600 mb-4">Mechanics and thermodynamics</p>
+          <div className="flex justify-between items-center">
+            <span className="text-sm text-yellow-600">60% mastered</span>
+            <button className="text-blue-500 hover:text-blue-600">Review →</button>
+          </div>
+        </div>
+        
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow cursor-pointer border-dashed border-2 border-gray-300">
+          <div className="text-center">
+            <Plus className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">Create New Deck</h3>
+            <p className="text-gray-600">Start a new flashcard collection</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderQuiz = () => (
+    <div className="space-y-6">
+      <div>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Quiz Center</h1>
+        <p className="text-gray-600">Test your knowledge and track your progress</p>
+      </div>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-lg font-semibold text-gray-900">Mathematics</h3>
+            <span className="text-sm bg-green-100 text-green-800 px-2 py-1 rounded">Easy</span>
+          </div>
+          <p className="text-gray-600 mb-4">Basic algebra and geometry concepts</p>
+          <div className="flex justify-between items-center mb-4">
+            <span className="text-sm text-gray-500">15 questions</span>
+            <span className="text-sm text-gray-500">~10 min</span>
+          </div>
+          <button className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-colors">
+            Start Quiz
+          </button>
+        </div>
+        
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-lg font-semibold text-gray-900">Physics</h3>
+            <span className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded">Medium</span>
+          </div>
+          <p className="text-gray-600 mb-4">Mechanics and motion problems</p>
+          <div className="flex justify-between items-center mb-4">
+            <span className="text-sm text-gray-500">20 questions</span>
+            <span className="text-sm text-gray-500">~15 min</span>
+          </div>
+          <button className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-colors">
+            Start Quiz
+          </button>
+        </div>
+        
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-lg font-semibold text-gray-900">Chemistry</h3>
+            <span className="text-sm bg-red-100 text-red-800 px-2 py-1 rounded">Hard</span>
+          </div>
+          <p className="text-gray-600 mb-4">Advanced organic chemistry</p>
+          <div className="flex justify-between items-center mb-4">
+            <span className="text-sm text-gray-500">25 questions</span>
+            <span className="text-sm text-gray-500">~20 min</span>
+          </div>
+          <button className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-colors">
+            Start Quiz
+          </button>
+        </div>
+      </div>
+      
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">Recent Quiz Results</h3>
+        <div className="space-y-3">
+          <div className="flex justify-between items-center p-4 bg-green-50 rounded-lg">
+            <div>
+              <p className="font-medium text-gray-900">Mathematics - Algebra Basics</p>
+              <p className="text-sm text-gray-500">Completed 2 hours ago</p>
+            </div>
+            <div className="text-right">
+              <p className="text-lg font-bold text-green-600">92%</p>
+              <p className="text-sm text-gray-500">14/15 correct</p>
+            </div>
+          </div>
+          <div className="flex justify-between items-center p-4 bg-blue-50 rounded-lg">
+            <div>
+              <p className="font-medium text-gray-900">Physics - Motion</p>
+              <p className="text-sm text-gray-500">Completed yesterday</p>
+            </div>
+            <div className="text-right">
+              <p className="text-lg font-bold text-blue-600">85%</p>
+              <p className="text-sm text-gray-500">17/20 correct</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderNotes = () => (
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">My Notes</h1>
+          <p className="text-gray-600">Organize and review your study notes</p>
+        </div>
+        <button className="flex items-center space-x-2 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+          <Plus className="w-4 h-4" />
+          <span>New Note</span>
+        </button>
+      </div>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow cursor-pointer">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-lg font-semibold text-gray-900">Calculus Derivatives</h3>
+            <span className="text-xs text-gray-500">2 days ago</span>
+          </div>
+          <p className="text-gray-600 text-sm mb-4">Rules for finding derivatives of polynomial functions...</p>
+          <div className="flex items-center justify-between">
+            <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">Mathematics</span>
+            <FileText className="w-4 h-4 text-gray-400" />
+          </div>
+        </div>
+        
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow cursor-pointer">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-lg font-semibold text-gray-900">Newton's Laws</h3>
+            <span className="text-xs text-gray-500">3 days ago</span>
+          </div>
+          <p className="text-gray-600 text-sm mb-4">Three fundamental laws of motion and their applications...</p>
+          <div className="flex items-center justify-between">
+            <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">Physics</span>
+            <FileText className="w-4 h-4 text-gray-400" />
+          </div>
+        </div>
+        
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow cursor-pointer">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-lg font-semibold text-gray-900">Organic Compounds</h3>
+            <span className="text-xs text-gray-500">1 week ago</span>
+          </div>
+          <p className="text-gray-600 text-sm mb-4">Structure and properties of carbon-based molecules...</p>
+          <div className="flex items-center justify-between">
+            <span className="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded">Chemistry</span>
+            <FileText className="w-4 h-4 text-gray-400" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderCourses = () => (
+    <div className="space-y-6">
+      <div>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">My Courses</h1>
+        <p className="text-gray-600">Continue your learning journey</p>
+      </div>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
+          <div className="h-32 bg-gradient-to-r from-blue-500 to-blue-600"></div>
+          <div className="p-6">
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">Advanced Calculus</h3>
+            <p className="text-gray-600 mb-4">Master integration, differentiation, and series</p>
+            <div className="flex justify-between items-center mb-4">
+              <span className="text-sm text-gray-500">Progress</span>
+              <span className="text-sm font-medium text-blue-600">75%</span>
+            </div>
+            <div className="w-full bg-gray-200 rounded-full h-2 mb-4">
+              <div className="bg-blue-500 h-2 rounded-full" style={{ width: '75%' }}></div>
+            </div>
+            <button className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-colors">
+              Continue Learning
+            </button>
+          </div>
+        </div>
+      </div>
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
+          <div className="h-32 bg-gradient-to-r from-green-500 to-green-600"></div>
+          <div className="p-6">
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">Quantum Physics</h3>
+            <p className="text-gray-600 mb-4">Explore the fundamentals of quantum mechanics</p>
+            <div className="flex justify-between items-center mb-4">
+              <span className="text-sm text-gray-500">Progress</span>
+              <span className="text-sm font-medium text-green-600">45%</span>
+            </div>
+            <div className="w-full bg-gray-200 rounded-full h-2 mb-4">
+              <div className="bg-green-500 h-2 rounded-full" style={{ width: '45%' }}></div>
+            </div>
+            <button className="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition-colors">
+              Continue Learning
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderUpload = () => (
+    <div className="space-y-6">
+      <div>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Upload & Solve</h1>
+        <p className="text-gray-600">Upload images of problems or take screenshots for AI assistance</p>
+      </div>
+      
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+        <div className="text-center">
+          <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <Upload className="w-8 h-8 text-blue-500" />
+          </div>
+          <h3 className="text-xl font-semibold text-gray-900 mb-2">Upload Problem Image</h3>
+          <p className="text-gray-600 mb-6">Drag and drop an image or click to browse</p>
+          <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 hover:border-blue-400 transition-colors cursor-pointer">
+            <input type="file" className="hidden" accept="image/*" />
+            <div className="text-center">
+              <Camera className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+              <p className="text-gray-500">Click here or drag image to upload</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">Recent Uploads</h3>
+        <div className="space-y-3">
+          <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+            <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+              <FileText className="w-6 h-6 text-blue-500" />
+            </div>
+            <div className="flex-1">
+              <p className="font-medium text-gray-900">Calculus Problem Set</p>
+              <p className="text-sm text-gray-500">Solved 2 hours ago</p>
+            </div>
+            <button className="text-blue-500 hover:text-blue-600">View →</button>
+          </div>
+          <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+            <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+              <FileText className="w-6 h-6 text-green-500" />
+            </div>
+            <div className="flex-1">
+              <p className="font-medium text-gray-900">Physics Diagram</p>
+              <p className="text-sm text-gray-500">Solved yesterday</p>
+            </div>
+            <button className="text-blue-500 hover:text-blue-600">View →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderScreen = () => {
+    switch (activeScreen) {
+      case 'dashboard':
+        return renderDashboard();
+      case 'chat':
+        return renderAIChat();
+      case 'flashcards':
+        return renderFlashcards();
+      case 'quiz':
+        return renderQuiz();
+      case 'notes':
+        return renderNotes();
+      case 'courses':
+        return renderCourses();
+      case 'upload':
+        return renderUpload();
+      default:
+        return renderDashboard();
     }
   };
 
   return (
     <div className="min-h-screen bg-gray-50 flex">
       {/* Sidebar */}
-      {renderSidebar()}
-      
-      {/* Mobile Overlay */}
-      {mobileMenuOpen && (
-        <div 
-          className="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden"
-          onClick={() => setMobileMenuOpen(false)}
-        />
-      )}
+      <div className="w-64 bg-white shadow-lg border-r border-gray-200">
+        <div className="p-6 border-b border-gray-200">
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-teal-500 rounded-lg flex items-center justify-center">
+              <GraduationCap className="w-6 h-6 text-white" />
+            </div>
+            <div>
+              <h1 className="text-xl font-bold text-gray-900">SmartStudy</h1>
+              <p className="text-xs text-gray-500">Education without limits</p>
+            </div>
+          </div>
+        </div>
+        
+        <nav className="p-4 space-y-2">
+          <button
+            onClick={() => setActiveScreen('dashboard')}
+            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
+              activeScreen === 'dashboard'
+                ? 'bg-blue-50 text-blue-700 border border-blue-200'
+                : 'text-gray-700 hover:bg-gray-100'
+            }`}
+          >
+            <Home className="w-5 h-5" />
+            <span>Dashboard</span>
+          </button>
+          
+          <button
+            onClick={() => setActiveScreen('chat')}
+            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
+              activeScreen === 'chat'
+                ? 'bg-blue-50 text-blue-700 border border-blue-200'
+                : 'text-gray-700 hover:bg-gray-100'
+            }`}
+          >
+            <MessageSquare className="w-5 h-5" />
+            <span>AI Chat</span>
+          </button>
+          
+          <button
+            onClick={() => setActiveScreen('flashcards')}
+            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
+              activeScreen === 'flashcards'
+                ? 'bg-blue-50 text-blue-700 border border-blue-200'
+                : 'text-gray-700 hover:bg-gray-100'
+            }`}
+          >
+            <Brain className="w-5 h-5" />
+            <span>Flashcards</span>
+          </button>
+          
+          <button
+            onClick={() => setActiveScreen('quiz')}
+            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
+              activeScreen === 'quiz'
+                ? 'bg-blue-50 text-blue-700 border border-blue-200'
+                : 'text-gray-700 hover:bg-gray-100'
+            }`}
+          >
+            <Target className="w-5 h-5" />
+            <span>Quiz</span>
+          </button>
+          
+          <button
+            onClick={() => setActiveScreen('notes')}
+            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
+              activeScreen === 'notes'
+                ? 'bg-blue-50 text-blue-700 border border-blue-200'
+                : 'text-gray-700 hover:bg-gray-100'
+            }`}
+          >
+            <FileText className="w-5 h-5" />
+            <span>Notes</span>
+          </button>
+          
+          <button
+            onClick={() => setActiveScreen('courses')}
+            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
+              activeScreen === 'courses'
+                ? 'bg-blue-50 text-blue-700 border border-blue-200'
+                : 'text-gray-700 hover:bg-gray-100'
+            }`}
+          >
+            <BookOpen className="w-5 h-5" />
+            <span>Courses</span>
+          </button>
+          
+          <button
+            onClick={() => setActiveScreen('upload')}
+            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
+              activeScreen === 'upload'
+                ? 'bg-blue-50 text-blue-700 border border-blue-200'
+                : 'text-gray-700 hover:bg-gray-100'
+            }`}
+          >
+            <Upload className="w-5 h-5" />
+            <span>Upload & Solve</span>
+          </button>
+        </nav>
+      </div>
 
       {/* Main Content */}
-      <div className={`flex-1 flex flex-col transition-all duration-300 ${
-        sidebarCollapsed ? 'lg:ml-16' : 'lg:ml-64'
-      }`}>
-        {renderHeader()}
-        
-        <main className="flex-1 overflow-y-auto">
-          {renderContent()}
-        </main>
+      <div className="flex-1 p-8">
+        {renderScreen()}
       </div>
     </div>
   );
-};
+}
 
 export default App;
