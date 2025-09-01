@@ -95,7 +95,6 @@ const App: React.FC = () => {
     { id: 'quiz', label: 'Quiz Mode', icon: Brain },
     { id: 'courses', label: 'Courses', icon: BookOpen },
     { id: 'notes', label: 'Notes', icon: BookOpen },
-    { id: 'progress', label: 'Progress', icon: BarChart3 },
     { id: 'upload', label: 'Screenshot Solve', icon: Upload },
   ];
 
@@ -1313,154 +1312,6 @@ const App: React.FC = () => {
     </div>
   );
 
-  const renderProgressScreen = () => (
-    <div className="p-6 space-y-6">
-      <div className="text-center">
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Progress Tracker</h2>
-        <p className="text-gray-600">Monitor your learning journey and achievements</p>
-      </div>
-
-      {/* Overall Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white rounded-xl p-6 border border-gray-100 shadow-sm text-center">
-          <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
-            <Clock className="w-6 h-6 text-blue-600" />
-          </div>
-          <p className="text-3xl font-bold text-gray-900">47h</p>
-          <p className="text-sm text-gray-600">Total Study Time</p>
-        </div>
-        <div className="bg-white rounded-xl p-6 border border-gray-100 shadow-sm text-center">
-          <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
-            <Award className="w-6 h-6 text-green-600" />
-          </div>
-          <p className="text-3xl font-bold text-gray-900">12</p>
-          <p className="text-sm text-gray-600">Badges Earned</p>
-        </div>
-        <div className="bg-white rounded-xl p-6 border border-gray-100 shadow-sm text-center">
-          <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-3">
-            <TrendingUp className="w-6 h-6 text-purple-600" />
-          </div>
-          <p className="text-3xl font-bold text-gray-900">85%</p>
-          <p className="text-sm text-gray-600">Average Score</p>
-        </div>
-        <div className="bg-white rounded-xl p-6 border border-gray-100 shadow-sm text-center">
-          <div className="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-3">
-            <Trophy className="w-6 h-6 text-yellow-600" />
-          </div>
-          <p className="text-3xl font-bold text-gray-900">7</p>
-          <p className="text-sm text-gray-600">Day Streak</p>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Weekly Progress */}
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
-          <h3 className="font-semibold text-gray-900 mb-6">Weekly Activity</h3>
-          <div className="space-y-4">
-            {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map((day, index) => (
-              <div key={day} className="flex items-center gap-4">
-                <span className="text-sm font-medium text-gray-600 w-20">{day.slice(0, 3)}</span>
-                <div className="flex-1 bg-gray-200 rounded-full h-3">
-                  <div 
-                    className="bg-gradient-to-r from-blue-500 to-teal-500 h-3 rounded-full transition-all duration-300"
-                    style={{ width: `${Math.random() * 80 + 20}%` }}
-                  ></div>
-                </div>
-                <span className="text-sm text-gray-500 w-8">{Math.floor(Math.random() * 3) + 1}h</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Subject Progress */}
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
-          <h3 className="font-semibold text-gray-900 mb-6">Subject Mastery</h3>
-          <div className="space-y-6">
-            <div>
-              <div className="flex justify-between items-center mb-2">
-                <span className="font-medium text-gray-700">Mathematics</span>
-                <span className="text-sm text-gray-600">85%</span>
-              </div>
-              <div className="w-full bg-gray-200 rounded-full h-3">
-                <div className="bg-blue-500 h-3 rounded-full w-4/5"></div>
-              </div>
-            </div>
-            <div>
-              <div className="flex justify-between items-center mb-2">
-                <span className="font-medium text-gray-700">Biology</span>
-                <span className="text-sm text-gray-600">72%</span>
-              </div>
-              <div className="w-full bg-gray-200 rounded-full h-3">
-                <div className="bg-green-500 h-3 rounded-full w-3/4"></div>
-              </div>
-            </div>
-            <div>
-              <div className="flex justify-between items-center mb-2">
-                <span className="font-medium text-gray-700">Physics</span>
-                <span className="text-sm text-gray-600">63%</span>
-              </div>
-              <div className="w-full bg-gray-200 rounded-full h-3">
-                <div className="bg-purple-500 h-3 rounded-full w-3/5"></div>
-              </div>
-            </div>
-            <div>
-              <div className="flex justify-between items-center mb-2">
-                <span className="font-medium text-gray-700">History</span>
-                <span className="text-sm text-gray-600">78%</span>
-              </div>
-              <div className="w-full bg-gray-200 rounded-full h-3">
-                <div className="bg-yellow-500 h-3 rounded-full w-4/5"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Achievements */}
-      <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
-        <h3 className="font-semibold text-gray-900 mb-6">Recent Achievements</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="flex items-center gap-4 p-4 bg-yellow-50 rounded-xl">
-            <div className="w-12 h-12 bg-yellow-500 rounded-full flex items-center justify-center">
-              <Trophy className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <p className="font-semibold text-gray-900">Study Streak Champion</p>
-              <p className="text-sm text-gray-600">7 days in a row!</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-4 p-4 bg-blue-50 rounded-xl">
-            <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center">
-              <Brain className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <p className="font-semibold text-gray-900">Quiz Master</p>
-              <p className="text-sm text-gray-600">Perfect score on Math quiz</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-4 p-4 bg-green-50 rounded-xl">
-            <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
-              <FileText className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <p className="font-semibold text-gray-900">Flashcard Expert</p>
-              <p className="text-sm text-gray-600">100 cards mastered</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-4 p-4 bg-purple-50 rounded-xl">
-            <div className="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center">
-              <Target className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <p className="font-semibold text-gray-900">Goal Achiever</p>
-              <p className="text-sm text-gray-600">Weekly target reached</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
   const renderUploadScreen = () => (
     <div className="p-6 space-y-6">
       <div className="text-center">
@@ -1765,7 +1616,6 @@ const App: React.FC = () => {
           </div>
         );
       case 'notes': return renderNotesContent();
-      case 'progress': return renderProgressScreen();
       case 'upload': return renderUploadScreen();
       default: return renderHomeScreen();
     }
