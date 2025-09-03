@@ -1313,7 +1313,223 @@ const App: React.FC = () => {
     </div>
   );
 
-          <>
+  const renderProgressScreen = () => (
+    <div className="p-6 space-y-6">
+      <div className="text-center">
+        <h2 className="text-2xl font-bold text-gray-900 mb-2">Your Progress</h2>
+        <p className="text-gray-600">Track your learning journey and achievements</p>
+      </div>
+
+      {/* Progress Overview */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+              <TrendingUp className="w-6 h-6 text-blue-600" />
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900">Overall Progress</h3>
+              <p className="text-sm text-gray-500">This month</p>
+            </div>
+          </div>
+          <div className="space-y-3">
+            <div className="flex justify-between">
+              <span className="text-gray-600">Study Hours</span>
+              <span className="font-semibold">42.5h</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-gray-600">Completed Lessons</span>
+              <span className="font-semibold">28</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-gray-600">Average Score</span>
+              <span className="font-semibold text-green-600">87%</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+              <Target className="w-6 h-6 text-green-600" />
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900">Goals</h3>
+              <p className="text-sm text-gray-500">Weekly targets</p>
+            </div>
+          </div>
+          <div className="space-y-3">
+            <div>
+              <div className="flex justify-between mb-1">
+                <span className="text-sm text-gray-600">Study Time</span>
+                <span className="text-sm font-medium">12/15h</span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-2">
+                <div className="bg-green-500 h-2 rounded-full w-4/5"></div>
+              </div>
+            </div>
+            <div>
+              <div className="flex justify-between mb-1">
+                <span className="text-sm text-gray-600">Flashcards</span>
+                <span className="text-sm font-medium">45/50</span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-2">
+                <div className="bg-blue-500 h-2 rounded-full w-11/12"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+              <Award className="w-6 h-6 text-purple-600" />
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900">Achievements</h3>
+              <p className="text-sm text-gray-500">Recent badges</p>
+            </div>
+          </div>
+          <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 bg-yellow-100 rounded-full flex items-center justify-center">
+                <Trophy className="w-3 h-3 text-yellow-600" />
+              </div>
+              <span className="text-sm text-gray-700">7-day streak</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center">
+                <Star className="w-3 h-3 text-blue-600" />
+              </div>
+              <span className="text-sm text-gray-700">Quiz master</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center">
+                <Check className="w-3 h-3 text-green-600" />
+              </div>
+              <span className="text-sm text-gray-700">Fast learner</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Subject Progress */}
+      <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
+        <h3 className="font-semibold text-gray-900 mb-6">Subject Progress</h3>
+        <div className="space-y-6">
+          <div>
+            <div className="flex justify-between mb-2">
+              <span className="font-medium text-gray-900">Mathematics</span>
+              <span className="text-sm text-gray-500">92% complete</span>
+            </div>
+            <div className="w-full bg-gray-200 rounded-full h-3">
+              <div className="bg-gradient-to-r from-blue-500 to-teal-500 h-3 rounded-full" style={{ width: '92%' }}></div>
+            </div>
+          </div>
+          <div>
+            <div className="flex justify-between mb-2">
+              <span className="font-medium text-gray-900">Physics</span>
+              <span className="text-sm text-gray-500">78% complete</span>
+            </div>
+            <div className="w-full bg-gray-200 rounded-full h-3">
+              <div className="bg-gradient-to-r from-purple-500 to-pink-500 h-3 rounded-full" style={{ width: '78%' }}></div>
+            </div>
+          </div>
+          <div>
+            <div className="flex justify-between mb-2">
+              <span className="font-medium text-gray-900">Chemistry</span>
+              <span className="text-sm text-gray-500">65% complete</span>
+            </div>
+            <div className="w-full bg-gray-200 rounded-full h-3">
+              <div className="bg-gradient-to-r from-green-500 to-teal-500 h-3 rounded-full" style={{ width: '65%' }}></div>
+            </div>
+          </div>
+          <div>
+            <div className="flex justify-between mb-2">
+              <span className="font-medium text-gray-900">Biology</span>
+              <span className="text-sm text-gray-500">45% complete</span>
+            </div>
+            <div className="w-full bg-gray-200 rounded-full h-3">
+              <div className="bg-gradient-to-r from-yellow-500 to-orange-500 h-3 rounded-full" style={{ width: '45%' }}></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Study Calendar */}
+      <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
+        <div className="flex items-center justify-between mb-6">
+          <h3 className="font-semibold text-gray-900">Study Calendar</h3>
+          <Calendar className="w-5 h-5 text-gray-400" />
+        </div>
+        <div className="grid grid-cols-7 gap-2 text-center">
+          {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
+            <div key={day} className="text-sm font-medium text-gray-500 p-2">
+              {day}
+            </div>
+          ))}
+          {Array.from({ length: 35 }, (_, i) => (
+            <div
+              key={i}
+              className={`p-2 text-sm rounded-lg ${
+                i % 7 === 0 || i % 7 === 6
+                  ? 'text-gray-400'
+                  : Math.random() > 0.7
+                  ? 'bg-green-100 text-green-700 font-medium'
+                  : Math.random() > 0.5
+                  ? 'bg-blue-100 text-blue-700'
+                  : 'text-gray-600'
+              }`}
+            >
+              {((i % 30) + 1)}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderUploadScreen = () => (
+    <div className="p-6 space-y-6">
+      <div className="text-center">
+        <h2 className="text-2xl font-bold text-gray-900 mb-2">Screenshot Solve</h2>
+        <p className="text-gray-600">Upload an image of your question and get instant AI-powered solutions</p>
+      </div>
+
+      {/* Upload Area */}
+      <div
+        className={`border-2 border-dashed rounded-2xl p-12 text-center transition-all ${
+          dragActive 
+            ? 'border-blue-400 bg-blue-50' 
+            : uploadedImage 
+            ? 'border-green-400 bg-green-50' 
+            : 'border-gray-300 hover:border-blue-400 hover:bg-blue-50'
+        }`}
+        onDrop={handleDrop}
+        onDragOver={(e) => e.preventDefault()}
+        onDragEnter={() => setDragActive(true)}
+        onDragLeave={() => setDragActive(false)}
+      >
+        {uploadedImage ? (
+          <div className="space-y-4">
+            <img src={uploadedImage} alt="Uploaded" className="max-w-md mx-auto rounded-lg shadow-sm" />
+            <div className="space-y-3">
+              <p className="text-green-700 font-medium">Image uploaded successfully!</p>
+              <div className="flex justify-center gap-3">
+                <button className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
+                  Solve Problem
+                </button>
+                <button 
+                  onClick={() => setUploadedImage(null)}
+                  className="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                >
+                  Upload Different Image
+                </button>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="space-y-6">
             <div>
               <ImageIcon className="w-10 h-10 text-gray-400" />
             </div>
@@ -1332,7 +1548,6 @@ const App: React.FC = () => {
               className="hidden"
               id="image-upload"
             />
-          </>
             <label
               htmlFor="image-upload"
               className="inline-block px-8 py-3 bg-gradient-to-r from-blue-500 to-teal-500 text-white rounded-xl font-semibold hover:shadow-lg transition-all cursor-pointer"
@@ -1597,6 +1812,7 @@ const App: React.FC = () => {
       <div className={`flex-1 flex flex-col transition-all duration-300 ${
         sidebarCollapsed ? 'lg:ml-16' : 'lg:ml-64'
       }`}>
+        {renderHeader()}
         
         <main className="flex-1 overflow-y-auto">
           {renderContent()}
