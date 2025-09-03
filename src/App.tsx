@@ -1325,7 +1325,6 @@ const App: React.FC = () => {
                 Drag and drop or click to select • Supports JPG, PNG, PDF
               </p>
             </div>
-          </>
             <input
               type="file"
               accept="image/*"
@@ -1333,6 +1332,7 @@ const App: React.FC = () => {
               className="hidden"
               id="image-upload"
             />
+          </>
             <label
               htmlFor="image-upload"
               className="inline-block px-8 py-3 bg-gradient-to-r from-blue-500 to-teal-500 text-white rounded-xl font-semibold hover:shadow-lg transition-all cursor-pointer"
