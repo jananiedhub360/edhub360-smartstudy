@@ -1313,6 +1313,8 @@ const App: React.FC = () => {
     </div>
   );
 
+          <>
+            <div>
               <ImageIcon className="w-10 h-10 text-gray-400" />
             </div>
             <div>
@@ -1323,6 +1325,7 @@ const App: React.FC = () => {
                 Drag and drop or click to select • Supports JPG, PNG, PDF
               </p>
             </div>
+          </>
             <input
               type="file"
               accept="image/*"
