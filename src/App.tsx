@@ -533,41 +533,6 @@ const App: React.FC = () => {
                   <Play className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                   <input
                     type="url"
-                    placeholder="https://youtube.com/watch?v=..."
-                    className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Action Buttons */}
-          <div className="flex justify-end gap-3">
-            <button
-              onClick={() => setShowCreateNotebook(false)}
-              className="px-6 py-3 border border-gray-200 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors"
-            >
-              Cancel
-            </button>
-            <button
-              onClick={() => {
-                setShowCreateNotebook(false);
-                setActiveNotebook('new');
-              }}
-              className="bg-gradient-to-r from-blue-600 to-teal-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-blue-700 hover:to-teal-700 transition-all duration-200"
-            >
-              Create Notebook
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
-  const renderNotebookWorkspace = () => (
-    <div className="flex h-full">
-      {/* Sources Panel */}
-      <div className="w-80 bg-gray-50 border-r border-gray-200 flex flex-col">
         {/* Sources Header */}
         <div className="p-4 border-b border-gray-200">
           <div className="flex items-center justify-between mb-4">
