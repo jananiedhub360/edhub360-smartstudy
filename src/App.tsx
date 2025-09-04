@@ -533,6 +533,41 @@ const App: React.FC = () => {
                   <Play className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                   <input
                     type="url"
+                    placeholder="https://youtube.com/watch?v=..."
+                    className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex justify-end gap-3">
+            <button
+              onClick={() => setShowCreateNotebook(false)}
+              className="px-6 py-3 border border-gray-200 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={() => {
+                setShowCreateNotebook(false);
+                setActiveNotebook('new');
+              }}
+              className="bg-gradient-to-r from-blue-600 to-teal-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-blue-700 hover:to-teal-700 transition-all duration-200"
+            >
+              Create Notebook
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderNotebookWorkspace = () => (
+    <div className="flex h-full">
+      {/* Sources Panel */}
+      <div className="w-80 bg-gray-50 border-r border-gray-200 flex flex-col">
         {/* Sources Header */}
         <div className="p-4 border-b border-gray-200">
           <div className="flex items-center justify-between mb-4">
@@ -1281,174 +1316,146 @@ const App: React.FC = () => {
   const renderProgressScreen = () => (
     <div className="p-6 space-y-6">
       <div className="text-center">
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Your Progress</h2>
-        <p className="text-gray-600">Track your learning journey and achievements</p>
+        <h2 className="text-2xl font-bold text-gray-900 mb-2">Progress Tracker</h2>
+        <p className="text-gray-600">Monitor your learning journey and achievements</p>
       </div>
 
-      {/* Progress Overview */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-              <TrendingUp className="w-6 h-6 text-blue-600" />
-            </div>
-            <div>
-              <h3 className="font-semibold text-gray-900">Overall Progress</h3>
-              <p className="text-sm text-gray-500">This month</p>
-            </div>
+      {/* Overall Stats */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="bg-white rounded-xl p-6 border border-gray-100 shadow-sm text-center">
+          <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+            <Clock className="w-6 h-6 text-blue-600" />
           </div>
-          <div className="space-y-3">
-            <div className="flex justify-between">
-              <span className="text-gray-600">Study Hours</span>
-              <span className="font-semibold">42.5h</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-gray-600">Completed Lessons</span>
-              <span className="font-semibold">28</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-gray-600">Average Score</span>
-              <span className="font-semibold text-green-600">87%</span>
-            </div>
-          </div>
+          <p className="text-3xl font-bold text-gray-900">47h</p>
+          <p className="text-sm text-gray-600">Total Study Time</p>
         </div>
-
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-              <Target className="w-6 h-6 text-green-600" />
-            </div>
-            <div>
-              <h3 className="font-semibold text-gray-900">Goals</h3>
-              <p className="text-sm text-gray-500">Weekly targets</p>
-            </div>
+        <div className="bg-white rounded-xl p-6 border border-gray-100 shadow-sm text-center">
+          <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
+            <Award className="w-6 h-6 text-green-600" />
           </div>
-          <div className="space-y-3">
-            <div>
-              <div className="flex justify-between mb-1">
-                <span className="text-sm text-gray-600">Study Time</span>
-                <span className="text-sm font-medium">12/15h</span>
-              </div>
-              <div className="w-full bg-gray-200 rounded-full h-2">
-                <div className="bg-green-500 h-2 rounded-full w-4/5"></div>
-              </div>
-            </div>
-            <div>
-              <div className="flex justify-between mb-1">
-                <span className="text-sm text-gray-600">Flashcards</span>
-                <span className="text-sm font-medium">45/50</span>
-              </div>
-              <div className="w-full bg-gray-200 rounded-full h-2">
-                <div className="bg-blue-500 h-2 rounded-full w-11/12"></div>
-              </div>
-            </div>
-          </div>
+          <p className="text-3xl font-bold text-gray-900">12</p>
+          <p className="text-sm text-gray-600">Badges Earned</p>
         </div>
-
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
-              <Award className="w-6 h-6 text-purple-600" />
-            </div>
-            <div>
-              <h3 className="font-semibold text-gray-900">Achievements</h3>
-              <p className="text-sm text-gray-500">Recent badges</p>
-            </div>
+        <div className="bg-white rounded-xl p-6 border border-gray-100 shadow-sm text-center">
+          <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-3">
+            <TrendingUp className="w-6 h-6 text-purple-600" />
           </div>
-          <div className="space-y-2">
-            <div className="flex items-center gap-2">
-              <div className="w-6 h-6 bg-yellow-100 rounded-full flex items-center justify-center">
-                <Trophy className="w-3 h-3 text-yellow-600" />
-              </div>
-              <span className="text-sm text-gray-700">7-day streak</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center">
-                <Star className="w-3 h-3 text-blue-600" />
-              </div>
-              <span className="text-sm text-gray-700">Quiz master</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center">
-                <Check className="w-3 h-3 text-green-600" />
-              </div>
-              <span className="text-sm text-gray-700">Fast learner</span>
-            </div>
+          <p className="text-3xl font-bold text-gray-900">85%</p>
+          <p className="text-sm text-gray-600">Average Score</p>
+        </div>
+        <div className="bg-white rounded-xl p-6 border border-gray-100 shadow-sm text-center">
+          <div className="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-3">
+            <Trophy className="w-6 h-6 text-yellow-600" />
           </div>
+          <p className="text-3xl font-bold text-gray-900">7</p>
+          <p className="text-sm text-gray-600">Day Streak</p>
         </div>
       </div>
 
-      {/* Subject Progress */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Weekly Progress */}
+        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
+          <h3 className="font-semibold text-gray-900 mb-6">Weekly Activity</h3>
+          <div className="space-y-4">
+            {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map((day, index) => (
+              <div key={day} className="flex items-center gap-4">
+                <span className="text-sm font-medium text-gray-600 w-20">{day.slice(0, 3)}</span>
+                <div className="flex-1 bg-gray-200 rounded-full h-3">
+                  <div 
+                    className="bg-gradient-to-r from-blue-500 to-teal-500 h-3 rounded-full transition-all duration-300"
+                    style={{ width: `${Math.random() * 80 + 20}%` }}
+                  ></div>
+                </div>
+                <span className="text-sm text-gray-500 w-8">{Math.floor(Math.random() * 3) + 1}h</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Subject Progress */}
+        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
+          <h3 className="font-semibold text-gray-900 mb-6">Subject Mastery</h3>
+          <div className="space-y-6">
+            <div>
+              <div className="flex justify-between items-center mb-2">
+                <span className="font-medium text-gray-700">Mathematics</span>
+                <span className="text-sm text-gray-600">85%</span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-3">
+                <div className="bg-blue-500 h-3 rounded-full w-4/5"></div>
+              </div>
+            </div>
+            <div>
+              <div className="flex justify-between items-center mb-2">
+                <span className="font-medium text-gray-700">Biology</span>
+                <span className="text-sm text-gray-600">72%</span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-3">
+                <div className="bg-green-500 h-3 rounded-full w-3/4"></div>
+              </div>
+            </div>
+            <div>
+              <div className="flex justify-between items-center mb-2">
+                <span className="font-medium text-gray-700">Physics</span>
+                <span className="text-sm text-gray-600">63%</span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-3">
+                <div className="bg-purple-500 h-3 rounded-full w-3/5"></div>
+              </div>
+            </div>
+            <div>
+              <div className="flex justify-between items-center mb-2">
+                <span className="font-medium text-gray-700">History</span>
+                <span className="text-sm text-gray-600">78%</span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-3">
+                <div className="bg-yellow-500 h-3 rounded-full w-4/5"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Achievements */}
       <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
-        <h3 className="font-semibold text-gray-900 mb-6">Subject Progress</h3>
-        <div className="space-y-6">
-          <div>
-            <div className="flex justify-between mb-2">
-              <span className="font-medium text-gray-900">Mathematics</span>
-              <span className="text-sm text-gray-500">92% complete</span>
+        <h3 className="font-semibold text-gray-900 mb-6">Recent Achievements</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="flex items-center gap-4 p-4 bg-yellow-50 rounded-xl">
+            <div className="w-12 h-12 bg-yellow-500 rounded-full flex items-center justify-center">
+              <Trophy className="w-6 h-6 text-white" />
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-3">
-              <div className="bg-gradient-to-r from-blue-500 to-teal-500 h-3 rounded-full" style={{ width: '92%' }}></div>
-            </div>
-          </div>
-          <div>
-            <div className="flex justify-between mb-2">
-              <span className="font-medium text-gray-900">Physics</span>
-              <span className="text-sm text-gray-500">78% complete</span>
-            </div>
-            <div className="w-full bg-gray-200 rounded-full h-3">
-              <div className="bg-gradient-to-r from-purple-500 to-pink-500 h-3 rounded-full" style={{ width: '78%' }}></div>
+            <div>
+              <p className="font-semibold text-gray-900">Study Streak Champion</p>
+              <p className="text-sm text-gray-600">7 days in a row!</p>
             </div>
           </div>
-          <div>
-            <div className="flex justify-between mb-2">
-              <span className="font-medium text-gray-900">Chemistry</span>
-              <span className="text-sm text-gray-500">65% complete</span>
+          <div className="flex items-center gap-4 p-4 bg-blue-50 rounded-xl">
+            <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center">
+              <Brain className="w-6 h-6 text-white" />
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-3">
-              <div className="bg-gradient-to-r from-green-500 to-teal-500 h-3 rounded-full" style={{ width: '65%' }}></div>
-            </div>
-          </div>
-          <div>
-            <div className="flex justify-between mb-2">
-              <span className="font-medium text-gray-900">Biology</span>
-              <span className="text-sm text-gray-500">45% complete</span>
-            </div>
-            <div className="w-full bg-gray-200 rounded-full h-3">
-              <div className="bg-gradient-to-r from-yellow-500 to-orange-500 h-3 rounded-full" style={{ width: '45%' }}></div>
+            <div>
+              <p className="font-semibold text-gray-900">Quiz Master</p>
+              <p className="text-sm text-gray-600">Perfect score on Math quiz</p>
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* Study Calendar */}
-      <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
-        <div className="flex items-center justify-between mb-6">
-          <h3 className="font-semibold text-gray-900">Study Calendar</h3>
-          <Calendar className="w-5 h-5 text-gray-400" />
-        </div>
-        <div className="grid grid-cols-7 gap-2 text-center">
-          {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
-            <div key={day} className="text-sm font-medium text-gray-500 p-2">
-              {day}
+          <div className="flex items-center gap-4 p-4 bg-green-50 rounded-xl">
+            <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
+              <FileText className="w-6 h-6 text-white" />
             </div>
-          ))}
-          {Array.from({ length: 35 }, (_, i) => (
-            <div
-              key={i}
-              className={`p-2 text-sm rounded-lg ${
-                i % 7 === 0 || i % 7 === 6
-                  ? 'text-gray-400'
-                  : Math.random() > 0.7
-                  ? 'bg-green-100 text-green-700 font-medium'
-                  : Math.random() > 0.5
-                  ? 'bg-blue-100 text-blue-700'
-                  : 'text-gray-600'
-              }`}
-            >
-              {((i % 30) + 1)}
+            <div>
+              <p className="font-semibold text-gray-900">Flashcard Expert</p>
+              <p className="text-sm text-gray-600">100 cards mastered</p>
             </div>
-          ))}
+          </div>
+          <div className="flex items-center gap-4 p-4 bg-purple-50 rounded-xl">
+            <div className="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center">
+              <Target className="w-6 h-6 text-white" />
+            </div>
+            <div>
+              <p className="font-semibold text-gray-900">Goal Achiever</p>
+              <p className="text-sm text-gray-600">Weekly target reached</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1457,18 +1464,18 @@ const App: React.FC = () => {
   const renderUploadScreen = () => (
     <div className="p-6 space-y-6">
       <div className="text-center">
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Screenshot Solve</h2>
-        <p className="text-gray-600">Upload an image of your question and get instant AI-powered solutions</p>
+        <h2 className="text-2xl font-bold text-gray-900 mb-2">Screenshot to Solve</h2>
+        <p className="text-gray-600">Upload an image and get AI-powered solutions instantly</p>
       </div>
 
       {/* Upload Area */}
-      <div
-        className={`border-2 border-dashed rounded-2xl p-12 text-center transition-all ${
+      <div 
+        className={`border-2 border-dashed rounded-2xl p-12 text-center transition-all duration-200 ${
           dragActive 
-            ? 'border-blue-400 bg-blue-50' 
+            ? 'border-blue-500 bg-blue-50' 
             : uploadedImage 
-            ? 'border-green-400 bg-green-50' 
-            : 'border-gray-300 hover:border-blue-400 hover:bg-blue-50'
+            ? 'border-green-500 bg-green-50' 
+            : 'border-gray-300 bg-gray-50 hover:bg-gray-100'
         }`}
         onDrop={handleDrop}
         onDragOver={(e) => e.preventDefault()}
@@ -1476,26 +1483,30 @@ const App: React.FC = () => {
         onDragLeave={() => setDragActive(false)}
       >
         {uploadedImage ? (
-          <div className="space-y-4">
-            <img src={uploadedImage} alt="Uploaded" className="max-w-md mx-auto rounded-lg shadow-sm" />
+          <div className="space-y-6">
+            <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto">
+              <Check className="w-10 h-10 text-green-600" />
+            </div>
+            <img 
+              src={uploadedImage} 
+              alt="Uploaded" 
+              className="max-w-full max-h-80 mx-auto rounded-xl shadow-lg"
+            />
             <div className="space-y-3">
-              <p className="text-green-700 font-medium">Image uploaded successfully!</p>
-              <div className="flex justify-center gap-3">
-                <button className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
-                  Solve Problem
-                </button>
-                <button 
-                  onClick={() => setUploadedImage(null)}
-                  className="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
-                >
-                  Upload Different Image
-                </button>
-              </div>
+              <button className="px-8 py-3 bg-gradient-to-r from-blue-500 to-teal-500 text-white rounded-xl font-semibold hover:shadow-lg transition-all">
+                Analyze Image
+              </button>
+              <button 
+                onClick={() => setUploadedImage(null)}
+                className="block mx-auto text-sm text-gray-500 hover:text-gray-700 transition-colors"
+              >
+                Upload different image
+              </button>
             </div>
           </div>
         ) : (
           <div className="space-y-6">
-            <div>
+            <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto">
               <ImageIcon className="w-10 h-10 text-gray-400" />
             </div>
             <div>
